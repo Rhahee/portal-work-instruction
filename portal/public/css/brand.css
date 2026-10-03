@@ -1,0 +1,27 @@
+:root{
+  --bg:#FAF8F3;
+  --paper:#FFF9ED;
+  --ink:#2A2925;
+  --muted:#6D665C;
+  --line:#D5C8B4;
+  --soft:#F1EBE0;
+  --accent:#2D6670;
+  --accent-dark:#1E444B;
+  --danger:#9C3E32;
+  --radius:7px;
+  --shadow:0 12px 32px rgba(42,41,37,.07);
+}
+
+.brand{gap:7px}
+.brand-mark{display:block;width:36px;aspect-ratio:1;flex:0 0 36px;height:auto;object-fit:contain;background:transparent;color:inherit}
+
+body{background:var(--bg)}
+.site-header{background:rgba(255,254,251,.94)}
+.tag{border-color:#CDBD9F;color:#5E5140}
+.tag.it{border-color:#80A8AA;color:#1E5962}
+.tag.general{border-color:#C9A775;color:#785431}
+.success{background:#E1EBDD;color:#2A5944}
+.rejection{background:#F8E6E0;color:#7B3028}
+.article-content pre,.ProseMirror pre{border-color:#1E444B;background:#243C40;color:#FFF9ED}
+.article-content :not(pre)>code{background:#E8DDC9;color:#1E444B}
+.pdf-attachment>span{background:#9C3E32}
