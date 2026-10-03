@@ -27,7 +27,6 @@ Portal pengetahuan internal untuk membuat, meninjau, menerbitkan, dan menemukan 
 Prasyarat: PHP, Composer, dan database SQLite atau MySQL.
 
 ```powershell
-cd portal
 composer install
 Copy-Item .env.example .env
 php artisan key:generate
