@@ -1,8 +1,8 @@
 <x-layouts.app title="Kelola WI">
 <section class="section management-section">
     <div class="section-heading">
-        <div><p class="eyebrow">MANAGEMENT</p><h1>Work Instructions</h1></div>
-        <a class="button" href="{{ route('manage.instructions.create') }}">+ Buat WI</a>
+        <div><h1>Work Instructions</h1></div>
+        <a class="button" href="{{ route('manage.instructions.create') }}">Buat Work Instruction</a>
     </div>
 
     <div class="data-table management-table">

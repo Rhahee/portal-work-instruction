@@ -13,8 +13,9 @@ class LibraryController extends Controller
     {
         $user = $request->user();
         $categories = Category::query()->when(! $user?->canReadIt(), fn ($q) => $q->where('type', 'general'))->orderBy('name')->get();
+        $selectedCategory = $categories->firstWhere('slug', $request->string('category')->toString());
         $instructions = WorkInstruction::with(['category', 'author'])->published()->visibleTo($user)
-            ->when($request->filled('category'), fn ($q) => $q->whereHas('category', fn ($c) => $c->where('slug', $request->input('category'))))
+            ->when($selectedCategory, fn ($q) => $q->where('category_id', $selectedCategory->id))
             ->when($request->filled('q'), fn ($q) => $q->where(fn ($search) => $search->where('title', 'like', '%'.$request->q.'%')->orWhere('excerpt', 'like', '%'.$request->q.'%')->orWhere('content_html', 'like', '%'.$request->q.'%')))
             ->latest('published_at')->paginate(10)->withQueryString();
         return view('library.index', compact('categories', 'instructions'));

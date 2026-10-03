@@ -16,8 +16,6 @@ Route::get('/wi/{workInstruction:slug}/attachment', [LibraryController::class, '
 
 Route::middleware('guest')->group(function () { Route::get('/login', [AuthController::class, 'create'])->name('login'); Route::post('/login', [AuthController::class, 'store'])->middleware('throttle:6,1')->name('login.store'); });
 Route::post('/logout', [AuthController::class, 'destroy'])->middleware('auth')->name('logout');
-Route::middleware(['auth', 'role:it,admin'])->get('/it-library', fn () => redirect()->route('library.index'))->name('it-library');
-
 Route::middleware(['auth', 'role:it,admin'])->prefix('dashboard')->name('dashboard.')->group(function () { Route::get('/', DashboardController::class)->name('index'); });
 Route::middleware(['auth', 'role:it,admin'])->prefix('manage')->name('manage.')->group(function () { Route::resource('instructions', ManageWorkInstructionController::class)->except('show'); Route::post('instructions/{workInstruction}/review', [ManageWorkInstructionController::class, 'review'])->name('instructions.review'); Route::post('instructions/{instruction}/deletion-review', [ManageWorkInstructionController::class, 'reviewDeletion'])->name('instructions.deletion-review'); Route::post('uploads/images', [ManageWorkInstructionController::class, 'upload'])->name('uploads.images'); });
 Route::middleware(['auth', 'role:admin'])->prefix('manage')->name('manage.')->group(function () { Route::resource('categories', CategoryController::class)->only(['index', 'store', 'edit', 'update', 'destroy']); Route::resource('users', UserController::class)->only(['index', 'store', 'edit', 'update', 'destroy']); });

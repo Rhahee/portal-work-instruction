@@ -1,59 +1,50 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Work Instruction Portal
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Portal pengetahuan internal untuk membuat, meninjau, menerbitkan, dan menemukan Work Instruction (WI). Aplikasi ini dibangun dengan Laravel + Blade dan didesain sebagai ruang dokumentasi yang responsif, sederhana, serta nyaman dibaca.
 
-## About Laravel
+## Fitur v1.1
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Library publik untuk WI kategori umum, dengan pencarian isi/judul dan filter kategori.
+- WI kategori IT hanya dapat dilihat oleh pengguna dengan role **IT** atau **Admin**.
+- Autentikasi menggunakan NIK dan password dengan sesi Laravel.
+- Dashboard IT untuk memantau draft, WI menunggu review, WI yang perlu direvisi, serta aktivitas artikel terbaru.
+- Editor Tiptap untuk format teks, subjudul, list, tautan, gambar, highlight, inline code, dan blok Bash.
+- Alur publikasi: pengguna IT menyimpan draft atau mengajukan review; Admin menerbitkan atau menolak dengan catatan.
+- Alur penghapusan: pengguna IT mengajukan penghapusan; Admin menyetujui atau menolak. Persetujuan menghapus WI dan lampiran PDF privatnya.
+- Lampiran PDF dapat ditambahkan pada WI; hanya IT/Admin yang dapat membukanya.
+- Sidebar responsif: tetap pada layar desktop lebar dan berubah menjadi menu popup pada layar yang lebih sempit.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Role dan akses
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| Pengguna | Akses |
+| --- | --- |
+| Publik | Membaca WI umum yang sudah diterbitkan. |
+| IT | Membaca WI umum dan IT, serta membuat, mengedit, mengajukan review, dan mengajukan penghapusan WI miliknya. |
+| Admin | Mengelola seluruh WI, menyetujui/menolak review dan penghapusan, serta mengelola kategori dan pengguna. |
 
-## Learning Laravel
+## Menjalankan lokal
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Prasyarat: PHP, Composer, dan database SQLite atau MySQL.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```powershell
+cd portal
+composer install
+Copy-Item .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+php artisan serve
+```
 
-## Laravel Sponsors
+Buka `http://127.0.0.1:8000` di browser. Konfigurasi database dan panduan produksi tersedia di [SETUP.md](SETUP.md).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Pengujian
 
-### Premium Partners
+```powershell
+php artisan test
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Test mencakup autentikasi, pembatasan WI IT, role, workflow review/penghapusan, lampiran PDF privat, highlight editor, serta filter kategori Library.
 
-## Contributing
+## Referensi desain
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Arah visual mengambil inspirasi komposisi, whitespace, tipografi, dan interaksi dari [Gkizaenalzahse](https://www.gkizaenalzahse.my.id/) serta [Agence Vandenabeele](https://www.agencevandenabeele.be/nl?ref=siteinspire), tanpa menyalin desainnya.

@@ -33,6 +33,20 @@ class WorkInstructionAccessTest extends TestCase
         $this->actingAs(User::factory()->create(['role' => 'it']))->get(route('library.show', $instruction))->assertOk()->assertSee('VPN Setup');
     }
 
+    public function test_library_filters_published_instructions_by_selected_category(): void
+    {
+        $operations = Category::create(['name' => 'Operasional', 'slug' => 'operasional', 'type' => 'general']);
+        $finance = Category::create(['name' => 'Keuangan', 'slug' => 'keuangan', 'type' => 'general']);
+        $author = User::factory()->create(['role' => 'admin']);
+        WorkInstruction::create(['title' => 'Prosedur Operasional', 'slug' => 'prosedur-operasional', 'status' => 'published', 'published_at' => now(), 'category_id' => $operations->id, 'author_id' => $author->id]);
+        WorkInstruction::create(['title' => 'Prosedur Keuangan', 'slug' => 'prosedur-keuangan', 'status' => 'published', 'published_at' => now(), 'category_id' => $finance->id, 'author_id' => $author->id]);
+
+        $this->get(route('library.index', ['category' => 'operasional']))
+            ->assertOk()
+            ->assertSee('Prosedur Operasional')
+            ->assertDontSee('Prosedur Keuangan');
+    }
+
     public function test_only_staff_can_open_dashboard(): void
     {
         $this->actingAs(User::factory()->create(['role' => 'legacy-reader']))->get(route('dashboard.index'))->assertForbidden();
