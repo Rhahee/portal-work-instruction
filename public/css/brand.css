@@ -12,6 +12,21 @@
   --shadow:0 12px 32px rgba(42,41,37,.07);
 }
 
+@font-face{
+  font-family:"Noto Sans";
+  font-style:normal;
+  font-weight:100 900;
+  font-display:swap;
+  src:url("../fonts/noto-sans-latin.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Noto Sans";
+  font-style:italic;
+  font-weight:100 900;
+  font-display:swap;
+  src:url("../fonts/noto-sans-latin-italic.woff2") format("woff2");
+}
+
 .brand{gap:7px}
 .brand-mark{display:block;width:36px;aspect-ratio:1;flex:0 0 36px;height:auto;object-fit:contain;background:transparent;color:inherit}
 
@@ -47,6 +62,9 @@ body{background:var(--bg)}
 
 /* Typography and density refinements for management views. */
 body,input,select,textarea,button{font-family:"Segoe UI",ui-sans-serif,system-ui,-apple-system,sans-serif}h1,h2,h3,.article-content h2,.article-content h3{font-family:Georgia,"Times New Roman",serif}.management-table th{padding:18px 20px}.management-table td{padding:22px 20px}
+
+/* One typeface across the portal; code blocks intentionally retain monospace. */
+body,input,select,textarea,button,h1,h2,h3,.article-content,.article-content h2,.article-content h3,.ProseMirror{font-family:"Noto Sans",ui-sans-serif,system-ui,sans-serif}
 
 /* Keep primary headings balanced on common 1366 px desktop screens. */
 h1{font-size:clamp(2rem,4vw,3.25rem)}
