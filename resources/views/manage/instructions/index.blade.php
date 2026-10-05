@@ -5,7 +5,7 @@
         <a class="button" href="{{ route('manage.instructions.create') }}">Buat Work Instruction</a>
     </div>
 
-    <div class="data-table management-table">
+    <div class="data-table management-table responsive-table">
         <table>
             <colgroup>
                 <col class="wi-title-column"><col class="wi-category-column"><col class="wi-status-column"><col class="wi-date-column"><col class="wi-action-column">
@@ -14,9 +14,9 @@
             <tbody>
                 @forelse($instructions as $instruction)
                     <tr>
-                        <td><strong>{{ $instruction->title }}</strong><br><small>{{ $instruction->author->name }}</small></td>
-                        <td>{{ $instruction->category->name }}</td>
-                        <td>
+                        <td data-label="Judul"><strong>{{ $instruction->title }}</strong><br><small>{{ $instruction->author->name }}</small></td>
+                        <td data-label="Kategori">{{ $instruction->category->name }}</td>
+                        <td data-label="Status">
                             <span class="tag">{{ str_replace('_', ' ', $instruction->status) }}</span>
                             @if($instruction->deletion_status === 'pending')
                                 <br><small class="danger">Menunggu hapus</small>
@@ -24,8 +24,8 @@
                                 <br><small>Hapus ditolak</small>
                             @endif
                         </td>
-                        <td>{{ $instruction->updated_at->format('d M Y') }}</td>
-                        <td>
+                        <td data-label="Diperbarui">{{ $instruction->updated_at->format('d M Y') }}</td>
+                        <td data-label="Aksi / Review">
                             @if($instruction->deletion_status === 'pending' && auth()->user()->isAdmin())
                                 <small>Diajukan oleh {{ $instruction->deletionRequester?->name }}</small>
                                 <form class="review-form compact" method="post" action="{{ route('manage.instructions.deletion-review', $instruction) }}">
@@ -49,7 +49,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="5">Belum ada WI.</td></tr>
+                    <tr><td class="table-empty" colspan="5">Belum ada WI.</td></tr>
                 @endforelse
             </tbody>
         </table>

@@ -27,7 +27,7 @@
                 @if(auth()->user()->canSubmitInstructions())
                     <p class="side-nav-label">RUANG KERJA</p>
                     <a class="{{ request()->routeIs('dashboard.*') ? 'active' : '' }}" href="{{ route('dashboard.index') }}">Dashboard</a>
-                    <a class="{{ request()->routeIs('manage.instructions.*') ? 'active' : '' }}" href="{{ route('manage.instructions.index') }}">Kelola WI</a>
+                    <a class="{{ request()->routeIs('manage.instructions.*') ? 'active' : '' }}" href="{{ route('manage.instructions.index') }}">Kelola WI @if($workspaceAttentionCount)<span class="nav-badge" aria-label="{{ $workspaceAttentionCount }} item perlu perhatian">{{ $workspaceAttentionCount }}</span>@endif</a>
                 @endif
                 @if(auth()->user()->isAdmin())
                     <p class="side-nav-label">ADMINISTRASI</p>

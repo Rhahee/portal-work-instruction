@@ -51,3 +51,60 @@ body,input,select,textarea,button{font-family:"Segoe UI",ui-sans-serif,system-ui
 /* Keep primary headings balanced on common 1366 px desktop screens. */
 h1{font-size:clamp(2rem,4vw,3.25rem)}
 .dashboard-hero h1{font-size:clamp(2rem,3.5vw,3rem)}
+
+/* Mobile layouts: keep the workspace compact and touch-friendly. */
+.nav-badge{display:inline-grid;place-items:center;min-width:20px;height:20px;margin-left:auto;padding:0 5px;border-radius:999px;background:var(--danger);color:#fff;font-size:.7rem;font-weight:800;line-height:1}
+.toolbar .toolbar-label,.toolbar .toolbar-icon{flex:0 0 auto;width:auto;background:transparent;margin:0}
+
+@media(max-width:720px){
+  .page-head{padding:42px 0 8px}
+  .page-head h1{font-size:clamp(1.875rem,9vw,2.25rem)}
+  .filter-bar{gap:8px;padding:12px}
+  .filter-bar .button{width:100%;min-height:44px}
+  .wi-row{gap:8px;padding:18px 0}
+  .wi-row>span:last-child{display:none}
+  .paper{width:calc(100% - 32px);margin-top:20px;margin-bottom:32px;padding:24px 20px;box-shadow:none}
+  .article-head h1{font-size:clamp(1.875rem,9vw,2.25rem)}
+  .article-content{font-size:1.06rem;line-height:1.8}
+  .article-content pre,.ProseMirror pre{margin-inline:0;padding:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+  .dashboard.dashboard-single{width:calc(100% - 40px);margin:28px auto}
+  .dashboard-hero{gap:14px;margin-bottom:22px}
+  .dashboard-hero h1{font-size:clamp(1.875rem,9vw,2rem)}
+  .dashboard-hero p:not(.eyebrow){font-size:1rem}
+  .dashboard-stat{min-height:112px;padding:16px}
+  .dashboard-stat strong{font-size:2rem}
+  .dashboard-panel{padding:18px}
+  .panel-actions{gap:8px}
+  .panel-actions .button{min-height:44px}
+  .dashboard-wi-row{padding:14px 0}
+  .responsive-table{overflow:visible;border:0;background:transparent}
+  .responsive-table table,.responsive-table tbody,.responsive-table tr,.responsive-table td{display:block;width:100%}
+  .responsive-table table{min-width:0!important}
+  .responsive-table colgroup,.responsive-table thead{display:none}
+  .responsive-table tbody{display:grid;gap:12px}
+  .responsive-table tr{padding:12px 16px;border:1px solid var(--line);background:var(--paper)}
+  .responsive-table td{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:8px 0;border:0;overflow-wrap:anywhere}
+  .responsive-table td::before{content:attr(data-label);color:var(--muted);font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+  .responsive-table td.table-empty{display:block;text-align:center;color:var(--muted)}
+  .responsive-table td.table-empty::before{display:none}
+  .responsive-table td:last-child{padding-bottom:0}
+}
+
+@media(max-width:560px){
+  .dashboard.dashboard-single{width:calc(100% - 32px);margin:22px auto}
+  .dashboard-stat-grid,.admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .panel-heading{gap:12px}
+  .panel-actions{display:grid;grid-template-columns:1fr auto;align-items:center}
+  .panel-actions .button{width:100%}
+  .toolbar{flex-wrap:nowrap;overflow-x:auto;padding:7px 8px;-webkit-overflow-scrolling:touch}
+  .toolbar button{display:inline-grid;flex:0 0 auto;place-items:center;min-width:44px;min-height:44px;padding:7px 9px}
+  .toolbar span{flex:0 0 1px}
+  .toolbar-label{display:none}
+  .toolbar-icon{display:inline}
+  .ProseMirror{min-height:360px;padding:20px}
+  .pdf-attachment{margin-top:28px;padding:14px}
+  .pdf-attachment .button{width:100%;margin-left:0}
+}
+
+@media(min-width:561px){.toolbar-icon{display:none}}
+@media(max-width:359px){.dashboard-stat-grid,.admin-stats{grid-template-columns:1fr}.responsive-table td{grid-template-columns:1fr;gap:3px}}
