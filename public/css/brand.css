@@ -47,3 +47,7 @@ body{background:var(--bg)}
 
 /* Typography and density refinements for management views. */
 body,input,select,textarea,button{font-family:"Segoe UI",ui-sans-serif,system-ui,-apple-system,sans-serif}h1,h2,h3,.article-content h2,.article-content h3{font-family:Georgia,"Times New Roman",serif}.management-table th{padding:18px 20px}.management-table td{padding:22px 20px}
+
+/* Keep primary headings balanced on common 1366 px desktop screens. */
+h1{font-size:clamp(2rem,4vw,3.25rem)}
+.dashboard-hero h1{font-size:clamp(2rem,3.5vw,3rem)}
