@@ -12,7 +12,46 @@ if (mount) {
   if (mount.dataset.html) {
     try { content = JSON.parse(mount.dataset.html); } catch (_) {}
   }
-  const editor = new Editor({ element: mount, content, extensions: [StarterKit, Underline, Highlight, Link.configure({ openOnClick: false }), Image] });
+  const isEditorShortcut = (event, code, { alt = false, shift = false } = {}) => (
+    (event.ctrlKey || event.metaKey)
+    && event.altKey === alt
+    && event.shiftKey === shift
+    && event.code === code
+  );
+
+  const editor = new Editor({
+    element: mount,
+    content,
+    extensions: [StarterKit, Underline, Highlight, Link.configure({ openOnClick: false }), Image],
+    editorProps: {
+      handleKeyDown: (_view, event) => {
+        if (event.isComposing) return false;
+
+        if (isEditorShortcut(event, 'Digit2', { alt: true })) {
+          event.preventDefault();
+          run('heading');
+          return true;
+        }
+        if (isEditorShortcut(event, 'KeyB', { alt: true })) {
+          event.preventDefault();
+          run('bash');
+          return true;
+        }
+        if (isEditorShortcut(event, 'KeyK')) {
+          event.preventDefault();
+          run('link');
+          return true;
+        }
+        if (isEditorShortcut(event, 'KeyE', { shift: true })) {
+          event.preventDefault();
+          run('inlineCode');
+          return true;
+        }
+
+        return false;
+      },
+    },
+  });
   const run = (command) => {
     const chain = editor.chain().focus();
     if (command === 'undo') chain.undo().run();
@@ -49,12 +88,6 @@ if (mount) {
     <button type="button" data-command="link" title="Buat hyperlink dari teks terpilih (Ctrl+K)" aria-label="Buat hyperlink">🔗</button><button type="button" data-command="image" title="Sisipkan Gambar" aria-label="Sisipkan Gambar">Sisipkan Gambar</button><button type="button" data-command="divider" title="Sisipkan separator" aria-label="Sisipkan separator">—</button><button type="button" data-command="bash" title="Blok Bash (Ctrl+Alt+B)" aria-label="Blok Bash">Bash</button><span></span>
     <button type="button" data-command="toggleHighlight" title="Highlight" aria-label="Highlight">▰</button>`;
   document.querySelectorAll('[data-command]').forEach((button) => button.addEventListener('click', () => run(button.dataset.command)));
-  mount.addEventListener('keydown', (event) => {
-    if (event.ctrlKey && event.altKey && event.key === '2') { event.preventDefault(); run('heading'); }
-    if (event.ctrlKey && event.altKey && event.key.toLowerCase() === 'b') { event.preventDefault(); run('bash'); }
-    if (event.ctrlKey && !event.altKey && event.key.toLowerCase() === 'k') { event.preventDefault(); run('link'); }
-    if (event.ctrlKey && event.shiftKey && !event.altKey && event.key.toLowerCase() === 'e') { event.preventDefault(); run('inlineCode'); }
-  });
   const file = document.createElement('input'); file.id = 'image-upload'; file.type = 'file'; file.accept = 'image/png,image/jpeg,image/webp'; file.hidden = true; document.body.append(file);
   file.addEventListener('change', async () => { if (!file.files[0]) return; const body = new FormData(); body.append('image', file.files[0]); const response = await fetch(mount.dataset.imageUploadUrl, { method: 'POST', body, headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, Accept: 'application/json' } }); if (!response.ok) return alert('Gambar tidak dapat diunggah. Pastikan format dan ukuran sesuai.'); editor.chain().focus().setImage({ src: (await response.json()).url }).run(); file.value = ''; });
   document.querySelector('#wi-form').addEventListener('submit', () => { document.querySelector('#content_json').value = JSON.stringify(editor.getJSON()); document.querySelector('#content_html').value = editor.getHTML(); });
