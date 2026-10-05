@@ -70,7 +70,7 @@ class ManageWorkInstructionController extends Controller
     {
         $request->validate(['image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120']]);
         $path = $request->file('image')->store('wi-images', 'public');
-        return response()->json(['url' => '/storage/'.$path]);
+        return response()->json(['url' => Storage::disk('public')->url($path)]);
     }
     private function save(Request $request, WorkInstruction $instruction)
     {
