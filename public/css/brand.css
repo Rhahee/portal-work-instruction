@@ -84,6 +84,12 @@ h1{font-size:clamp(2rem,4vw,3.25rem)}
   .paper{width:calc(100% - 32px);margin-top:20px;margin-bottom:32px;padding:24px 20px;box-shadow:none}
   .article-head h1{font-size:clamp(1.875rem,9vw,2.25rem)}
   .article-content{font-size:1.06rem;line-height:1.8}
+  .article-content ol,.article-content ul,.ProseMirror ol,.ProseMirror ul{margin:1em 0;padding-left:1.4rem}
+  .article-content ol ol,.article-content ol ul,.article-content ul ol,.article-content ul ul,.ProseMirror ol ol,.ProseMirror ol ul,.ProseMirror ul ol,.ProseMirror ul ul{margin:.7em 0;padding-left:1.2rem}
+  .article-content li,.ProseMirror li{padding-left:.2rem}
+  .article-content li+li,.ProseMirror li+li{margin-top:.7em}
+  .article-content li>p,.ProseMirror li>p{margin-bottom:0}
+  .article-content li::marker,.ProseMirror li::marker{font-weight:700;color:var(--accent)}
   .article-content pre,.ProseMirror pre{margin-inline:0;padding:14px;white-space:pre-wrap;overflow-wrap:anywhere}
   .dashboard.dashboard-single{width:calc(100% - 40px);margin:28px auto}
   .dashboard-hero{gap:14px;margin-bottom:22px}
